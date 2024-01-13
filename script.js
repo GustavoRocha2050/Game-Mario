@@ -25,7 +25,7 @@ const loop = setInterval(() => {
         mario.style.animation = 'none';
         mario.style.bottom = '80px'; 
     
-        mario.src = 'img/game-over.png';
+        mario.src = 'game-over.png';
         mario.style.width = '75px';
         mario.style.marginLeft = '50px';
     
