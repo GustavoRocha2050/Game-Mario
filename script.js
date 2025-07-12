@@ -39,7 +39,11 @@ const restartGame = () => {
     isGameOver = false;
 
     // Reinicia visuais e posições
-    mario.src = 'mario.gif';
+    mario.src = '';
+setTimeout(() => {
+  mario.src = 'mario.gif';
+}, 50);
+
     mario.style.width = '150px';
     mario.style.marginLeft = '0';
     mario.style.bottom = '0';
