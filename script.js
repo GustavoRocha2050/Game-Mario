@@ -25,7 +25,7 @@ const startGameLoop = () => {
             mario.style.animation = 'none';
             mario.style.bottom = '80px'; 
 
-            mario.src = 'game-over.png';
+            mario.src = 'img/game-over.png';
             mario.style.width = '75px';
             mario.style.marginLeft = '50px';
 
@@ -39,7 +39,7 @@ const restartGame = () => {
     isGameOver = false;
 
     // Reinicia visuais e posições
-    mario.src = 'marioGift.gif';
+    mario.src = 'img/marioGift.gif';
     mario.style.width = '150px';
     mario.style.marginLeft = '0';
     mario.style.bottom = '0';
@@ -64,6 +64,10 @@ document.addEventListener('keydown', (event) => {
 
 // Inicia o jogo pela primeira vez
 startGameLoop();
+
+
+
+
 
 
 
