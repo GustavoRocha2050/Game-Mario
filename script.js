@@ -1,42 +1,71 @@
 const mario = document.querySelector('.mario');
 const pipe = document.querySelector('.pipe'); 
 
-const jump = () =>{
-    mario.classList.add('jump');
+let isGameOver = false;
+let loop;
 
-    setTimeout(() =>{
-        mario.classList.remove('jump');
-    },500);
+const jump = () => {
+    if (!isGameOver) {
+        mario.classList.add('jump');
+        setTimeout(() => {
+            mario.classList.remove('jump');
+        }, 500);
+    }
 }
 
-const loop = setInterval(() => {
+const startGameLoop = () => {
+    loop = setInterval(() => {
+        const pipePosition = pipe.offsetLeft;
+        const marioPosition = +window.getComputedStyle(mario).bottom.replace('px', '');
 
-    console.log('loop')
+        if (pipePosition <= 120 && pipePosition > 0 && marioPosition < 80) {
+            pipe.style.animation = 'none';
+            pipe.style.left = `${pipePosition}px`;
 
-    const pipePosition = pipe.offsetLeft;
-    const marioPosition = +window.getComputedStyle(mario).bottom.replace('px','');
+            mario.style.animation = 'none';
+            mario.style.bottom = '80px'; 
 
-    console.log(marioPosition);
+            mario.src = 'img/game-over.png';
+            mario.style.width = '75px';
+            mario.style.marginLeft = '50px';
 
-    if (pipePosition <= 120 && pipePosition > 0 && marioPosition < 80) {
-        pipe.style.animation = 'none';
-        pipe.style.left = `${pipePosition}px`;
+            clearInterval(loop);
+            isGameOver = true;
+        }
+    }, 10);
+};
+
+const restartGame = () => {
+    isGameOver = false;
+
+    // Reinicia visuais e posições
+    mario.src = 'img/marioGift.gif';
+    mario.style.width = '150px';
+    mario.style.marginLeft = '0';
+    mario.style.bottom = '0';
+    mario.style.animation = '';
     
-        mario.style.animation = 'none';
-        mario.style.bottom = '80px'; 
-    
-        mario.src = 'game-over.png';
-        mario.style.width = '75px';
-        mario.style.marginLeft = '50px';
-    
-        clearInterval(loop);
+    pipe.style.left = '';
+    pipe.style.animation = 'pipe-animation 1.5s infinite linear';
+
+    startGameLoop();
+};
+
+// Escuta a tecla W
+document.addEventListener('keydown', (event) => {
+    if (event.key.toLowerCase() === 'w') {
+        if (isGameOver) {
+            restartGame();
+        } else {
+            jump();
+        }
     }
-    
-}, 10);
+});
 
-document.addEventListener('keydown', jump);
+// Inicia o jogo pela primeira vez
+startGameLoop();
 
 
-//chat
+
 
 
